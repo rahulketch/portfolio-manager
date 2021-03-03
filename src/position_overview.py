@@ -43,9 +43,9 @@ def get_positions(df):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-f', '--file', required=True)
+    parser.add_argument('-f', '--files', nargs='+')
     args = parser.parse_args()
-    transactions = read_degiro_transactions(args.file)
+    transactions = pandas.concat([read_degiro_transactions(file) for file in args.files])
     positions = get_positions(transactions)
     print(positions)
 
