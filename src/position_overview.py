@@ -36,10 +36,17 @@ def read_degiro_transactions(filepath):
 
 
 def get_ticker_price(isin):
-    ticker = ticker_from_isin(isin)
-    if ticker is None:
+    ticker_name = ticker_from_isin(isin)
+    if ticker_name is None:
         return None
-    return yf.Ticker(ticker).history(period="1d")['Close'][0]
+    ticker = yf.Ticker(ticker_name)
+    price = ticker.history(period="1d")['Close'][0]
+    if ticker.info['currency'] == 'EUR':
+        return price
+    elif ticker.info['currency'] == 'USD':
+        return price / yf.Ticker('EURUSD=X').history(period="1d")['Close'][0]
+    else:
+        raise RuntimeError(f"Currency {ticker.info['currency']} not supported")
 
 
 def get_current_value(row):
