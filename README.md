@@ -1,7 +1,8 @@
 # Portfolio Manager
 
-Portfolio manager can be used to get an overview of a financial instruments portfolio. Currently only transaction overview from Degiro are supported
+This project can be used to get an overview of the portfolio based on the buy/sell transactions. Currently only DeGiro transaction overview is supported.
 
+The project uses `yfinance` to get the latest price of the securities. 
 
 ## Installing and running
 1. Install a  `python3.7` virtual environment. For instance by running `python3.7 -m venv venv/pm2`
