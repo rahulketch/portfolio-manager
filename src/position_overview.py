@@ -1,8 +1,6 @@
 import pandas
 import yfinance as yf
-
-filepath = '/home/rahul/Downloads/Transactions.csv'
-
+import argparse
 
 def ticker_from_isin(isin):
     return {
@@ -44,7 +42,10 @@ def get_positions(df):
 
 
 def main():
-    transactions = read_degiro_transactions(filepath)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-f', '--file', required=True)
+    args = parser.parse_args()
+    transactions = read_degiro_transactions(args.file)
     positions = get_positions(transactions)
     print(positions)
 
